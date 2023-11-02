@@ -38,10 +38,10 @@ Card::Card(const Card& rhs)
 // Copy Assignment Operator
 Card& Card::operator=(const Card& rhs) 
 {
-    //assigns one Card obj to another like rhs to current obj
+    //assigns one Card obj to another like rhs to current obj and if this obj is the same as the rhs just return that bro
+
     if (this == &rhs) 
     {
-        //if this obj is the same as the rhs just return that bro
         return *this;
     }
 
@@ -113,10 +113,9 @@ Card::Card()
     bitmap_ = nullptr;       //image data pointer to nullptr.
 }
 
-// getType() Function
+//get the type fo the card via getter
 std::string Card::getType() const 
 {
-    //get the type fo the card via getter
     if (cardType_ == POINT_CARD) 
     {
         return "Point Card";
@@ -133,51 +132,44 @@ std::string Card::getType() const
     }
 }
 
-// setType() Function
+//setter sets card type based on the param
 void Card::setType(const CardType& type) 
 {
-    //setter sets card type based on the param
     cardType_ = type;
 }
 
-// getInstruction() Function
+//get the instruction of the card via getter
 const std::string& Card::getInstruction() const 
 {
-    //get the instruction of the card via getter
     return instruction_;
 }
 
-// setInstruction() Function
+//setter sets instruction based on the param
 void Card::setInstruction(const std::string& instruction) 
 {
-    //setter sets instruction based on the param
     instruction_ = instruction;
 }
 
-// getImageData() Function
+//getter returns pointer to the image data
 const int* Card::getImageData() const 
 {
-    //getter returns pointer to the image data
     return bitmap_;
 }
 
-// setImageData() Function
+//setter sets imagedata type based on the param
 void Card::setImageData(int* data) 
 {
-    //setter sets imagedata type based on the param
     bitmap_ = data;
 }
 
-// getDrawn() Function
+//getter gets the drawn status of the card
 bool Card::getDrawn() const 
 {
-    //getter gets the drawn status of the card
     return drawn_;
 }
 
-// setDrawn() Function
+//setter sets drawn status based on the param
 void Card::setDrawn(const bool& drawn) 
 {
-    //setter sets drawn status based on the param
     drawn_ = drawn;
 }

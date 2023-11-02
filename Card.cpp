@@ -52,7 +52,7 @@ Card& Card::operator=(const Card& rhs)
 
     //also needa do the copy for the bitmap
     bitmap_ = new int[80]; 
-    for (int i = 0; i < 80; i++) 
+    for (int i = 0; i < 80; i++)
     { 
         bitmap_[i] = rhs.bitmap_[i]; 
     } 

@@ -11,7 +11,7 @@ Card.cpp defines the member functions for the Card class.
 // Destructor
 Card::~Card() 
 {
-    // You should free any dynamically allocated memory in this destructor if needed.
+    //destructor destroying duh
     delete[] bitmap_;
 }
 
@@ -23,16 +23,13 @@ Card::Card(const Card& rhs)
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
 
-    /* dont know about deep copies
-    // Make a deep copy of the image data.
-    if (rhs.bitmap_ != nullptr) {
-        bitmap_ = new int[ of [80];
-        for (int i = 0; i < 80; ++i) {
-            bitmap_[i] = rhs.bitmap_[i];
-        }
-    } else {
-        bitmap_ = nullptr;  // The source object has no image data.
-    }*/
+    //also need to copy the bitmap so:
+    bitmap_ = new int[80]; 
+    for (int i = 0; i < 80; ++i) 
+    { 
+        bitmap_[i] = rhs.bitmap_[i]; 
+    } 
+
 }
 
 // Copy Assignment Operator
@@ -53,16 +50,12 @@ Card& Card::operator=(const Card& rhs)
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
 
-    /* dont know about deep copies
-    // Make a deep copy of the image data.
-    if (rhs.bitmap_ != nullptr) {
-        bitmap_ = new int[80];
-        for (int i = 0; i < 80; ++i) {
-            bitmap_[i] = rhs.bitmap_[i];
-        }
-    } else {
-        bitmap_ = nullptr;  // The source object has no image data.
-    }*/
+    //also needa do the copy for the bitmap
+    bitmap_ = new int[80]; 
+    for (int i = 0; i < 80; ++i) 
+    { 
+        bitmap_[i] = rhs.bitmap_[i]; 
+    } 
 
     return *this;  //return current obj
 }
@@ -98,7 +91,7 @@ Card& Card::operator=(Card&& rhs)
     bitmap_ = rhs.bitmap_;
     drawn_ = rhs.drawn_;
 
-    //set source obj's pointer to nullptr aka valid but empty state
+    //set source obj's pointer to nullptr aka valid but empty state like reset it
     rhs.bitmap_ = nullptr;
     return *this;
 }

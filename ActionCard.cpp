@@ -28,8 +28,8 @@ bool ActionCard::isPlayable()
     std::string instruction = getInstruction(); 
 
     // Check if the instruction matches valid patterns 
-    std::regex validInstruction(R"(^(DRAW \d+ CARD(S)|PLAY \d+ CARD(S)|REVERSE HAND|SWAP HAND WITH OPPONENT)$)");
-    return std::regex_match(getInstruction(), validInstruction);
+    std::regex validInstructions("(DRAW \\d+ CARD\\(S\\))|(PLAY \\d+ CARD\\(S\\))|(REVERSE HAND)|(SWAP HAND WITH OPPONENT)"); 
+    return std::regex_match(instruction, validInstructions); 
 }
 
 void ActionCard::Print() const {

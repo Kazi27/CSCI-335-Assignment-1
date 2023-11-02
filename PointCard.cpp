@@ -11,7 +11,7 @@ PointCard.cpp defines the member functions for the PointCard class.
 PointCard::PointCard() 
 { 
     // initializer list 
-    setType(CardType::POINT_CARD); 
+    setType(POINT_CARD); 
     setInstruction("0"); 
     setImageData(nullptr); 
     setDrawn(false); 

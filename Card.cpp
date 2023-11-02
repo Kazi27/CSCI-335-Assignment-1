@@ -26,8 +26,8 @@ Card::Card(const Card& rhs)
     /* dont know about deep copies
     // Make a deep copy of the image data.
     if (rhs.bitmap_ != nullptr) {
-        bitmap_ = new int[size of the array];
-        for (int i = 0; i < size of the array; ++i) {
+        bitmap_ = new int[ of [80];
+        for (int i = 0; i < 80; ++i) {
             bitmap_[i] = rhs.bitmap_[i];
         }
     } else {
@@ -56,8 +56,8 @@ Card& Card::operator=(const Card& rhs)
     /* dont know about deep copies
     // Make a deep copy of the image data.
     if (rhs.bitmap_ != nullptr) {
-        bitmap_ = new int[size of the array];
-        for (int i = 0; i < size of the array; ++i) {
+        bitmap_ = new int[80];
+        for (int i = 0; i < 80; ++i) {
             bitmap_[i] = rhs.bitmap_[i];
         }
     } else {

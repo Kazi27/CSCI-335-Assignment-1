@@ -20,7 +20,7 @@ ActionCard::ActionCard()
 bool ActionCard::isPlayable() 
 {
     //checks whether the card is playable or no so first check if the card is drawm if not drawn it cant be played
-    if (!getDrawn()) 
+    if (getDrawn() == false) 
     {
         return false;
     }
@@ -43,7 +43,7 @@ void ActionCard::Print() const {
     const int* imageData = getImageData();
     if (getImageData() != nullptr) 
     { 
-        for (int i = 0; i < 80; i++) 
+        for (int i = 0; i < 80; ++i) 
         { 
             std::cout << getImageData()[i] << " "; 
         } 

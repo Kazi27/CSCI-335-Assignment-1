@@ -6,6 +6,9 @@
 
 int main()
 {
+    //!!to test use make rebuild which means isntead of doing g++ -o main (all the .cpp files), u just do make rebuild and it’ll do all that for all files
+    //!!after that, executable file called main is created and to run that u do ./main which wil then show u stuff in ur terminal
+    
     PointCard pc1;
     PointCard pc2;
     pc1.setInstruction("1");
@@ -15,6 +18,8 @@ int main()
     ActionCard ac2;
     ac1. setInstruction ("REVERSE HAND"); 
     ac2.setInstruction("SWAP HAND WITH OPPONENT");
+
+    std::cout << "pc1 isPlayable: " << pc1.isPlayable() << std::endl;
 
     // Deck<PointCard> pdeck;
     // Deck<ActionCard> adeck;

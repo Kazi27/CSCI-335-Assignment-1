@@ -2,42 +2,51 @@
 #include "Card.hpp"
 #include "ActionCard.hpp"
 #include "PointCard.hpp"
-//#include "Deck.hpp"
+#include "Deck.hpp"
 
-int main()
+int main() 
 {
-    //!!to test use make rebuild which means isntead of doing g++ -o main (all the .cpp files), u just do make rebuild and it’ll do all that for all files
-    //!!after that, executable file called main is created and to run that u do ./main which wil then show u stuff in ur terminal
-    
     PointCard pc1;
     PointCard pc2;
     pc1.setInstruction("1");
     pc2.setInstruction("2");
-    
+
     ActionCard ac1;
     ActionCard ac2;
-    ac1. setInstruction ("REVERSE HAND"); 
-    ac2.setInstruction("SWAP HAND WITH OPPONENT");
+    ActionCard ac3;
+    ActionCard ac4;
+    ac2.setInstruction("REVERSE HAND");
+    ac1.setInstruction("SWAP HAND WITH OPPONENT");
+    ac3.setInstruction("DRAW 3 CARD(S)");
+    ac4.setInstruction("PLAY 6 CARD(S)");
+    //std::cout << ac2.getInstruction() << std::endl;
 
-    std::cout << "pc1 isPlayable: " << pc1.isPlayable() << std::endl;
+    Deck<PointCard> pdeck;
+    Deck<ActionCard> adeck;
 
-    // Deck<PointCard> pdeck;
-    // Deck<ActionCard> adeck;
+    pdeck.AddCard(pc1);
+    pdeck.AddCard(pc2);
 
-    // pdeck. AddCard (pc1);
-    // pdeck. AddCard (pc2);
-    // adeck. AddCard (ac1);
-    // adeck. AddCard (ac2);
+    adeck.AddCard(ac1);
+    adeck.AddCard(ac2);
+    adeck.AddCard(ac3);
+    adeck.AddCard(ac4);
 
-    // for (int i=0; i < pdeck.getSizel); i++) 
-    // {
-    //     PointCard card = pdeck.Draw();
-    //     card. Print ();
-    // }
-    
-    // for (int i=0; i < adeck.getSize(); i++) 
-    // {
-    //     ActionCard card = adeck. Draw();
-    //     card.Print ();
-    // }
+    std::cout << adeck.getSize() << std::endl;
+    adeck.Shuffle();
+
+    int adeckSize = adeck.getSize();
+    for (int i=0; i < adeckSize; i++) {
+        ActionCard card = adeck.Draw();
+        card.Print();
+        std::cout << std::endl;
+    }
+    std::cout << adeck.getSize() << std::endl;
+
+    for (const ActionCard& card : adeck.getDeck()) {
+        card.Print();
+        std::cout << std::endl;
+    }
+
+    return 0;
 }

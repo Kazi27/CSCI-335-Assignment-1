@@ -97,11 +97,6 @@ std::string Card::getType() const
     {
         return "Action Card";
     } 
-    
-    else 
-    {
-        return "Unknown";  //type is neither point nor action
-    }
 }
 
 //setter sets card type based on the param

@@ -25,14 +25,23 @@ bool ActionCard::isPlayable()
         return false;
     }
 
-    std::string instruction = getInstruction(); 
+    if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") 
+    {
+        return true;
+    } 
 
-    // Check if the instruction matches valid patterns 
-    std::regex validInstructions("(DRAW \\d+ CARD\\(S\\))|(PLAY \\d+ CARD\\(S\\))|(REVERSE HAND)|(SWAP HAND WITH OPPONENT)"); 
-    return std::regex_match(instruction, validInstructions); 
+    std::regex pattern(R"((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))");
+
+    if (!std::regex_match(getInstruction(), pattern)) 
+    {
+        return false;
+    }
+
+    return true;
 }
 
-void ActionCard::Print() const {
+void ActionCard::Print() const 
+{
 
     // print the card type and instruction
     std::cout << "Type: " << getType() << std::endl;
@@ -40,19 +49,13 @@ void ActionCard::Print() const {
     std::cout << "Card:" << std::endl; 
 
     //if there is image data, print it but if not just say no image data
-    const int* imageData = getImageData();
+    if (getImageData() == nullptr)
+    {
+        std::cout << "No image data" << std::endl;
+    }
+
     if (getImageData() != nullptr) 
-    { 
-        for (int i = 0; i < 80; ++i) 
-        { 
-            std::cout << getImageData()[i] << " "; 
-        } 
-    } 
-    
-    else 
-    { 
-        std::cout << "No image data"; 
-    } 
-    
-    std::cout << std::endl; 
+    {
+        std::cout << getImageData();
+    }
 }

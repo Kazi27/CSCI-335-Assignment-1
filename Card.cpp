@@ -8,11 +8,21 @@ Card.cpp defines the member functions for the Card class.
 
 #include "Card.hpp"
 
+// Default Constructor
+Card::Card() 
+{
+    //creates a new Card object
+    cardType_ = POINT_CARD;  //set an initial type like point card (default ig)
+    instruction_ = "";       //set an initial instruction, empty in this case
+    drawn_ = false;          //set the initial drawn status like flase
+    bitmap_ = nullptr;       //image data pointer to nullptr.
+}
+
 // Destructor
 Card::~Card() 
 {
     //destructor destroying duh
-    delete[] bitmap_;
+    delete bitmap_; //removed the [] but idk y ?
 }
 
 // Copy Constructor
@@ -25,7 +35,7 @@ Card::Card(const Card& rhs)
 
     //also need to copy the bitmap so:
     bitmap_ = new int[80]; 
-    for (int i = 0; i < 80; ++i) 
+    for (int i = 0; i < 80; ++i) //i++ same as ++i
     { 
         bitmap_[i] = rhs.bitmap_[i]; 
     } 
@@ -65,18 +75,21 @@ Card::Card(Card&& rhs)
 {
     //move one Card object to another aka rhs to the current obj like take resources from the source object and set it to a valid but "empty" state
     cardType_ = rhs.cardType_;
-    instruction_ = std::move(rhs.instruction_);
+    instruction_ = rhs.instruction_;
     bitmap_ = rhs.bitmap_;
     drawn_ = rhs.drawn_;
     
-    //set source obj's pointer to nullptr aka valid but empty state
+    //reset source obj's stuff
     rhs.bitmap_ = nullptr;
+    rhs.cardType_ = POINT_CARD; //we set default to point b4
+    rhs.instruction_ = "";
+    rhs.drawn_ = false;
 }
 
 // Move Assignment Operator
 Card& Card::operator=(Card&& rhs) 
 {
-    //assigns one Card obj to another
+    //assigns one Card obj to another but like if this is the same as whateva ur passin, just return that
     if (this == &rhs) 
     {
         return *this;
@@ -94,16 +107,6 @@ Card& Card::operator=(Card&& rhs)
     //set source obj's pointer to nullptr aka valid but empty state like reset it
     rhs.bitmap_ = nullptr;
     return *this;
-}
-
-// Default Constructor
-Card::Card() 
-{
-    //creates a new Card object
-    cardType_ = POINT_CARD;  //set an initial type like point card
-    instruction_ = "";       //set an initial instruction, empty in this case
-    drawn_ = false;          //set the initial drawn status like flase
-    bitmap_ = nullptr;       //image data pointer to nullptr.
 }
 
 //get the type fo the card via getter

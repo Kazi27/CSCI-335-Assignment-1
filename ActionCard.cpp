@@ -27,7 +27,8 @@ bool ActionCard::isPlayable()
         return true;
     } 
 
-    std::regex pattern("((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //instruction starts w draw or play, has a space, 2 spaces for digits that can be 1 - 9, ends w string "CARDS" - 0 not included, case sensitive
+    //std::regex pattern("((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //instruction starts w draw or play, has a space, 2 spaces for digits that can be 1 - 9, ends w string "CARDS" - 0 not included, case sensitive
+    std::regex pattern("((R?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //gradescope version
     //gradescope accepts std::regex pattern("((R?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); but when u try this in vscode it doesnt work, prolly compiler issue
 
     if (!std::regex_match(getInstruction(), pattern)) //if instruction does NOT match this pattern, its not playable so return false

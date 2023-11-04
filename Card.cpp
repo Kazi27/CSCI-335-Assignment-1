@@ -90,12 +90,12 @@ std::string Card::getType() const
 {
     if (cardType_ == POINT_CARD) 
     {
-        return "Point Card";
+        return "POINT_CARD";
     } 
     
     else if (cardType_ == ACTION_CARD) 
     {
-        return "Action Card";
+        return "ACTION_CARD";
     } 
 }
 

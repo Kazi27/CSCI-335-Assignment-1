@@ -39,7 +39,7 @@ bool ActionCard::isPlayable()
 
 void ActionCard::Print() const 
 {
-    std::cout << "Type: " << getType() << "\n" << "Instructions: " << getInstruction() << "\n" << "Card: " << "\n";
+    std::cout << "Type: " << getType() << "\n" << "Instruction: " << getInstruction() << "\n" << "Card: " << "\n";
 
     if (getImageData() == nullptr)
     {

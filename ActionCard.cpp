@@ -16,29 +16,30 @@ ActionCard::ActionCard() : Card()
 
 bool ActionCard::isPlayable() 
 {
-    //checks whether the card is playable or no so first check if the card is drawm if not drawn it cant be played
+    //checks whether the card is playable or no so first check if the card is drawm if not drawn it cant be played, undrawn = no play
     if (getDrawn() == false) 
     {
         return false;
     }
 
-    if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") 
+    if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") //if action is these 2, return true
     {
         return true;
     } 
 
-    std::regex pattern(R"((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))");
+    std::regex pattern(R"((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //instruction starts w draw or play, has a space, 2 spaces for digits that can be 1 - 9, ends w string "CARDS" - 0 not included, case sensitive
 
-    if (!std::regex_match(getInstruction(), pattern)) 
+    if (!std::regex_match(getInstruction(), pattern)) //if instruction does NOT match this pattern, its not playable so return false
     {
         return false;
     }
 
-    return true;
+    return true; //if ur here it means cards drawn and follows the pattern of instruction so it is playable fr
 }
 
 void ActionCard::Print() const 
 {
+    //shows card type, instruction of the action card then the card image data but first u check if there isss data. If no then say no, if yes then show it 
     std::cout << "Type: " << getType() << "\n" << "Instruction: " << getInstruction() << "\n" << "Card: " << "\n";
 
     if (getImageData() == nullptr)

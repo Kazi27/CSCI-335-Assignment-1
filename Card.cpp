@@ -25,10 +25,10 @@ Card::~Card()
     delete bitmap_; //removed the [] but idk y ?
 }
 
-// Copy Constructor
+// Copy Constructor also here ur creating a new obj so u dont check for self assignment
 Card::Card(const Card& rhs) 
 {
-    //creates a new Card object by copying another Card object by copying all the data members from rhs to current obj
+    //creates a new Card object by copying another Card object (rhs) by copying all it's data members
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
@@ -42,7 +42,7 @@ Card::Card(const Card& rhs)
 
 }
 
-// Copy Assignment Operator
+// Copy Assignment Operator also here ur copying stuff from two existing objs so check for self assignment
 Card& Card::operator=(const Card& rhs) 
 {
     if (this == &rhs)
@@ -59,10 +59,10 @@ Card& Card::operator=(const Card& rhs)
     }
 }
 
-// Move Constructor
+// Move Constructor, ur making a new obj and moving stuff from existing obj to there, setting exisiting obj priv data members to default
 Card::Card(Card&& rhs) 
 {
-    //move one Card object to another aka rhs to the current obj like take resources from the source object and set it to a valid but "empty" state
+    //move the contents of Card object (rhs) into another (*this) and then set rhs priv data members to default vals
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     bitmap_ = rhs.bitmap_;
@@ -75,7 +75,7 @@ Card::Card(Card&& rhs)
     rhs.drawn_ = false;
 }
 
-// Move Assignment Operator
+// Move Assignment Operator, ur essentially swapping 2 objects data members
 Card& Card::operator=(Card&& rhs) 
 {
     std::swap (bitmap_, rhs.bitmap_);

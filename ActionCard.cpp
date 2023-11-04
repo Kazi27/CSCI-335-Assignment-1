@@ -39,19 +39,14 @@ bool ActionCard::isPlayable()
 
 void ActionCard::Print() const 
 {
+    std::cout << "Type: " << getType() << "\n" << "Points: " << getInstruction() << "\n" << "Card: " << "\n";
 
-    // print the card type and instruction
-    std::cout << "Type: " << getType() << std::endl;
-    std::cout << "Instruction: " << getInstruction() << std::endl;
-    std::cout << "Card:" << std::endl; 
-
-    //if there is image data, print it but if not just say no image data
     if (getImageData() == nullptr)
     {
         std::cout << "No image data" << std::endl;
     }
 
-    if (getImageData() != nullptr) 
+    if (getImageData() != nullptr)
     {
         std::cout << getImageData();
     }

@@ -8,13 +8,9 @@ PointCard.cpp defines the member functions for the PointCard class.
 
 #include "PointCard.hpp" 
 
-PointCard::PointCard() 
+PointCard::PointCard() : Card()
 { 
-    // initializer list 
-    setType(POINT_CARD); 
-    setInstruction("0"); 
-    setImageData(nullptr); 
-    setDrawn(false); 
+    //point card is a typa card so u inherit it from card class and defualt is point so u dont even need to change the cardtype_
 } 
 
 bool PointCard::isPlayable() 
@@ -38,6 +34,7 @@ void PointCard::Print() const
     std::cout << "Type: " << getType() << std::endl; 
     std::cout << "Points: " << getInstruction() << std::endl; 
     std::cout << "Card:" << std::endl; 
+    
     if (getImageData() == nullptr)
     {
         std::cout << "No image data" << std::endl;

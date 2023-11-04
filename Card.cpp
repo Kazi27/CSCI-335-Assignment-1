@@ -45,29 +45,18 @@ Card::Card(const Card& rhs)
 // Copy Assignment Operator
 Card& Card::operator=(const Card& rhs) 
 {
-    //assigns one Card obj to another like rhs to current obj and if this obj is the same as the rhs just return that bro
-
-    if (this == &rhs) 
+    if (this == &rhs)
     {
-        return *this;
+        return *this; //if current obj is same as rhs jus return bro
     }
 
-    //clean up the current object's resources, dont know if we need to tho
-    delete[] bitmap_;
-
-    //copy the stuff from rhs to the current obj like the copy constructor
-    cardType_ = rhs.cardType_;
-    instruction_ = rhs.instruction_;
-    drawn_ = rhs.drawn_;
-
-    //also needa do the copy for the bitmap
-    bitmap_ = new int[80]; 
-    for (int i = 0; i < 80; ++i) 
-    { 
-        bitmap_[i] = rhs.bitmap_[i]; 
-    } 
-
-    return *this;  //return current obj
+    if (this != &rhs)
+    {
+        *bitmap_ = *rhs.bitmap_;
+        cardType_ = rhs.cardType_;
+        instruction_ = rhs.instruction_;
+        drawn_ = rhs.drawn_;
+    }
 }
 
 // Move Constructor
@@ -81,7 +70,7 @@ Card::Card(Card&& rhs)
     
     //reset source obj's stuff
     rhs.bitmap_ = nullptr;
-    rhs.cardType_ = POINT_CARD; //we set default to point b4
+    rhs.cardType_ = POINT_CARD; //remember we set default to point b4
     rhs.instruction_ = "";
     rhs.drawn_ = false;
 }
@@ -89,23 +78,10 @@ Card::Card(Card&& rhs)
 // Move Assignment Operator
 Card& Card::operator=(Card&& rhs) 
 {
-    //assigns one Card obj to another but like if this is the same as whateva ur passin, just return that
-    if (this == &rhs) 
-    {
-        return *this;
-    }
-
-    //clean up current obj's stuff
-    delete[] bitmap_;
-
-    //move data from rhs to the current obj
-    cardType_ = rhs.cardType_;
-    instruction_ = std::move(rhs.instruction_);
-    bitmap_ = rhs.bitmap_;
-    drawn_ = rhs.drawn_;
-
-    //set source obj's pointer to nullptr aka valid but empty state like reset it
-    rhs.bitmap_ = nullptr;
+    std::swap (bitmap_, rhs.bitmap_);
+    std::swap (cardType_, rhs.cardType_);
+    std::swap (instruction_, rhs.instruction_);
+    std::swap (drawn_, rhs.drawn_);
     return *this;
 }
 

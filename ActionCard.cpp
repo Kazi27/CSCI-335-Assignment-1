@@ -8,13 +8,10 @@ ActionCard.cpp defines the member functions for the ActionCard class.
 
 #include "ActionCard.hpp"
 
-ActionCard::ActionCard() 
+ActionCard::ActionCard() : Card()
 {
-    // initializers list
+    //action card is a typa card so u inherit it from card class but defualt is point so u need to change the cardtype_
     setType(ACTION_CARD);
-    setInstruction("");  // empty tring
-    setDrawn(false);     // not inifitally drawn
-    setImageData(nullptr); 
 }
 
 bool ActionCard::isPlayable() 

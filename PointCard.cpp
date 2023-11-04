@@ -31,14 +31,14 @@ bool PointCard::isPlayable()
 
 void PointCard::Print() const 
 { 
-    std::cout << "Type: " << getType() << "\n" << "Instruction: " << getInstruction() << "\n" << "Card: " << "\n";
+    std::cout << "Type: " << getType() << "\n" << "Points: " << getInstruction() << "\n" << "Card: " << "\n";
 
     if (getImageData() == nullptr)
     {
         std::cout << "No image data" << std::endl;
     }
-    
-    else 
+
+    if (getImageData() != nullptr)  
     {
         std::cout << getImageData();
     }

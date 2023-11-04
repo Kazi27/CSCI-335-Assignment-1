@@ -37,8 +37,8 @@ void PointCard::Print() const
     {
         std::cout << "No image data" << std::endl;
     }
-
-    if (getImageData() != nullptr)
+    
+    else 
     {
         std::cout << getImageData();
     }

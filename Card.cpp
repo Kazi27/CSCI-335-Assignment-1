@@ -105,10 +105,17 @@ Card& Card::operator=(Card&& rhs)
         return *this; 
     } 
     
-    std::swap (bitmap_, rhs.bitmap_);
-    std::swap (cardType_, rhs.cardType_);
-    std::swap (instruction_, rhs.instruction_);
-    std::swap (drawn_, rhs.drawn_);
+    // std::swap (bitmap_, rhs.bitmap_);
+    // std::swap (cardType_, rhs.cardType_);
+    // std::swap (instruction_, rhs.instruction_);
+    // std::swap (drawn_, rhs.drawn_);
+    // return *this;
+    delete[] bitmap_; 
+    cardType_ = rhs.cardType_; 
+    instruction_ = std::move(rhs.instruction_); 
+    bitmap_ = rhs.bitmap_; 
+    drawn_ = rhs.drawn_; 
+    rhs.bitmap_ = nullptr; 
     return *this;
 }
 

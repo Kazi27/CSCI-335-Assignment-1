@@ -9,11 +9,9 @@ Player.cpp defines the member functions for the Player class.
 #include "Player.hpp"
 
 //default constructor
-Player::Player()
+Player::Player() : score_(0), opponent_(nullptr)
 {
     //hand_ = Hand(); //call constructor
-    score_ = 0;
-    opponent_ = nullptr;
     actiondeck_ = new Deck<ActionCard>();
     pointdeck_ = new Deck<PointCard>();
 }
@@ -57,7 +55,7 @@ void Player::play(ActionCard&& card)
         card.setDrawn(true); //draw the card 
 
         std::string instruction = card.getInstruction(); //get the instruction store in instruction variable
-        std::regex draw("DRAW (\\d+) CAARD(\\(S\\))?"); //draw x card or cards
+        std::regex draw("DRAW (\\d+) CARD(\\(S\\))?"); //draw x card or cards
         std::regex play("PLAY (\\d+) CARD(\\(S\\))?"); //play x card or cards
         std::smatch format;
 

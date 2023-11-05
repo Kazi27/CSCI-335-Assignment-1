@@ -11,7 +11,7 @@ Player.cpp defines the member functions for the Player class.
 //default constructor
 Player::Player()
 {
-    hand_ = Hand(); //call constructor
+    //hand_ = Hand(); //call constructor
     score_ = 0;
     opponent_ = nullptr;
     actiondeck_ = new Deck<ActionCard>();

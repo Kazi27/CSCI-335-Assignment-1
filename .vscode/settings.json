@@ -54,6 +54,7 @@
         "tuple": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "memory_resource": "cpp"
     }
 }

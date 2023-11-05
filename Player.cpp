@@ -57,7 +57,7 @@ void Player::play(ActionCard&& card)
         card.setDrawn(true); //draw the card 
 
         std::string instruction = card.getInstruction(); //get the instruction store in instruction variable
-        std::regex draw("DRAW (\\d+) CARD(\\(S\\))?"); //draw x card or cards
+        std::regex draw("DRAW (\\d+) CAARD(\\(S\\))?"); //draw x card or cards
         std::regex play("PLAY (\\d+) CARD(\\(S\\))?"); //play x card or cards
         std::smatch format;
 
@@ -77,9 +77,9 @@ void Player::play(ActionCard&& card)
         else if(std::regex_match(instruction, format, draw)) //compares instruction with draw regex format
         {
             std::string temp = format[1].str(); //gets string like the x in draw x cards
-            int x = std::stoi(temp); //turns that string to int
+            int y = std::stoi(temp); //turns that string to int
 
-            for (int i = 0; i < x; ++i)
+            for (int i = 0; i < y; ++i)
             {
                 // auto y = pointdeck_->Draw(); //not allowed lvalue rvalue issue so combine these two sentences into this
                 // hand_.addCard(y);

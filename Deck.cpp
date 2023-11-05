@@ -40,7 +40,8 @@ CardType&& Deck<CardType>::Draw() //&& means move
     //     return false;
     // }
 
-    if (IsEmpty() == false) //its not empty
+    //if (IsEmpty() == false) 
+    if (!IsEmpty()) //its not empty
     {
         cards_.back().setDrawn(true);
         CardType card = std::move(cards_.back()); //move the card from the back to top

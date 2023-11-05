@@ -7,6 +7,7 @@ Hand.cpp defines the member functions for the PointCard class.
 */
 
 #include "Hand.hpp"
+#include <algorithm> //NEEDED FOR REVERSE
 
 //default constructor
 Hand::Hand()

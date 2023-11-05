@@ -1,8 +1,8 @@
 /*
 CSCI335 Fall 2023
 Assignment 1 – Card Game
-Name
-Date
+Name: Kazi Anwar
+Date: November 5th, 2023
 Player.cpp implements the Player class.
 */
 

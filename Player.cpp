@@ -14,14 +14,15 @@ Player::Player()
     hand_ = Hand(); //call constructor
     score_ = 0;
     opponent_ = nullptr;
-    actiondeck_ = nullptr; //dont know why we dont call the deck constructor here
-    pointdeck_ = nullptr;
+    actiondeck_ = new Deck<ActionCard>();
+    pointdeck_ = new Deck<PointCard>();
 }
 
 //destructor
 Player::~Player()
 {
-    //no new keyword or dynamic mem allocation taking place so no need for delete keyword?
+    delete actiondeck_;
+    delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
 }
 
 //get players hand
@@ -51,15 +52,54 @@ void Player::setScore(const int& score)
 //play the action card and report the instruction
 void Player::play(ActionCard&& card)
 {
-    std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
-    if (card.getInstruction() == "SWAP HAND WITH OPPONENT")
+    if (card.isPlayable()) //first figure out if u can play the card
     {
-        //?
-    }
+        card.setDrawn(true); //draw the card 
 
-    else if (card.getInstruction() == "REVERSE HAND")
-    {
-        hand_.Reverse();
+        std::string instruction = card.getInstruction(); //get the instruction store in instruction variable
+        std::regex draw("DRAW (\\d+) CARD(\\(S\\))?"); //draw x card or cards
+        std::regex play("PLAY (\\d+) CARD(\\(S\\))?"); //play x card or cards
+        std::smatch format;
+
+        std::cout << "PLAYING ACTION CARD: " << instruction << std::endl; //hpp deinfed this
+
+        if(std::regex_match(instruction, format, play)) //compares instruction with play regex format
+        {
+            std::string temp = format[1].str(); //gets string like the x in play x cards
+            int x = std::stoi(temp); //turns that string to int
+
+            for (int i = 0; i < x; ++i)
+            {
+                playPointCard(); //plays
+            }
+        }
+
+        else if(std::regex_match(instruction, format, draw)) //compares instruction with draw regex format
+        {
+            std::string temp = format[1].str(); //gets string like the x in draw x cards
+            int x = std::stoi(temp); //turns that string to int
+
+            for (int i = 0; i < x; ++i)
+            {
+                // auto y = pointdeck_->Draw(); //not allowed lvalue rvalue issue so combine these two sentences into this
+                // hand_.addCard(y);
+                hand_.addCard(pointdeck_->Draw());
+            }
+        }
+
+        else if(instruction == "SWAP HAND WITH OPPONENT")
+        {
+            Hand urHand = getHand(); //gets ur hand_ var
+            Hand oppHand = opponent_->getHand(); //get opponent hand
+
+            setHand(oppHand); //now ur hand is opponents hand
+            opponent_->setHand(urHand); //now opponent hand is ur hand
+        }
+
+        else if(instruction == "REVERSE HAND")
+        {
+            hand_.Reverse(); //simple enough lmao
+        }
     }
 }
 

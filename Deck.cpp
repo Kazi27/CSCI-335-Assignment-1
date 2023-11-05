@@ -35,12 +35,12 @@ void Deck<CardType>::AddCard(const CardType& card)
 template <typename CardType>
 CardType&& Deck<CardType>::Draw() //&& means move
 {
-    if (IsEmpty() == true)
-    {
-        return false;
-    }
+    // if (IsEmpty() == true)
+    // {
+    //     return false;
+    // }
 
-    if (IsEmpty() == false)
+    if (IsEmpty() == false) //its not empty
     {
         cards_.back().setDrawn(true);
         CardType card = std::move(cards_.back()); //move the card from the back to top

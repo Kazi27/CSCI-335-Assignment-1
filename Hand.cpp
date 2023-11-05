@@ -17,13 +17,19 @@ Hand::Hand()
 //destructor
 Hand::~Hand()
 {
-    //no deletion required
+    while(!this->isEmpty()) //as long as obj isnt empty popback aka delete
+    {
+        cards_.pop_back();
+    }
 }
 
 //copy constructor
 Hand::Hand(const Hand& other)
 {
-    cards_ = other.cards_;
+    for (auto card : other.cards_) //auto to simplify type, iterate over all the cards in other hand
+    {
+        cards_.push_back(card); //copy each card from other to this
+    }
 }
 
 //copy assignment operator
@@ -34,10 +40,16 @@ Hand& Hand::operator=(const Hand& other)
         return *this; //a pointer that points to current obj
     }
 
+    for (auto card : other.cards_)
+    {
+        this->cards_.push_back(card); //copies cards from other and pushes it into this card obj
+    }
+    return *this;
+
     // if (this != &other) //not needed
     // {
-        cards_ = other.cards_;
-        return *this;
+        // cards_ = other.cards_;
+        // return *this;
     // }
 }
 
@@ -55,7 +67,7 @@ Hand& Hand::operator=(Hand&& other)
         return *this;
     }
 
-    std::swap(cards_, other.cards_);
+    cards_ = std::move(other.cards_);
     return *this;
 }
 
@@ -68,7 +80,8 @@ const std::deque<PointCard>& Hand::getCards() const
 //add a card
 void Hand::addCard(PointCard&& card)
 {
-    cards_.push_back(card); //point card has a move and move assignment operator defined so its a movable type so u can do this plus card is a vect so u can push/pop etc
+    card.setDrawn(true);
+    cards_.push_back(std::move(card)); //point card has a move and move assignment operator defined so its a movable type so u can do this plus card is a vect so u can push/pop etc
 }
 
 //is hand empty or na

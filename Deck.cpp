@@ -32,23 +32,40 @@ void Deck<CardType>::AddCard(const CardType& card)
 }
 
 //draw a card from the deck
-template <typename CardType>
-CardType Deck<CardType>::Draw() //&& means move
-{
-    // if (IsEmpty() == true)
-    // {
-    //     return false;
-    // }
+// template <typename CardType>
+// CardType Deck<CardType>::Draw() //&& means move
+// {
+//     // if (IsEmpty() == true)
+//     // {
+//     //     return false;
+//     // }
 
-    //if (IsEmpty() == false) 
-    if (!IsEmpty()) //its not empty
+//     //if (IsEmpty() == false) 
+//     if (!IsEmpty()) //its not empty
+//     {
+//         cards_.back().setDrawn(true);
+//         CardType card = std::move(cards_.back()); //move the card from the back to top
+//         cards_.pop_back(); //remove that card from the deck
+//         return std::move(card); //return it as r value
+//     }
+// }   
+
+template <typename CardType>
+CardType Deck<CardType>::Draw() 
+{ 
+    if (cards_.size() != 0) 
     {
-        cards_.back().setDrawn(true);
-        CardType card = std::move(cards_.back()); //move the card from the back to top
-        cards_.pop_back(); //remove that card from the deck
-        return std::move(card); //return it as r value
+        if (cards_.size() != 0) 
+        {
+            CardType card = std::move(cards_.back());
+            cards_.pop_back();
+
+            card.setDrawn(true);
+            return card; 
+        }
     }
-}   
+    return CardType();
+} 
 
 //is card_ empty or nah
 template <typename CardType>

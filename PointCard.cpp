@@ -10,6 +10,7 @@ PointCard.cpp defines the member functions for the PointCard class.
 
 PointCard::PointCard() : Card()
 { 
+    setInstruction("0");
     //point card is a typa card so u inherit it from card class and defualt is point so u dont even need to change the cardtype_
 } 
 

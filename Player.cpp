@@ -14,15 +14,17 @@ Player::Player()
     //hand_ = Hand(); //call constructor
     score_ = 0;
     opponent_ = nullptr;
-    actiondeck_ = new Deck<ActionCard>();
-    pointdeck_ = new Deck<PointCard>();
+    // actiondeck_ = new Deck<ActionCard>();
+    // pointdeck_ = new Deck<PointCard>();]
+    actiondeck_ = nullptr;
+    pointdeck_ = nullptr;
 }
 
 //destructor
 Player::~Player()
 {
-    delete actiondeck_;
-    delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
+    // delete actiondeck_;
+    // delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
 }
 
 //get players hand
@@ -52,10 +54,10 @@ void Player::setScore(const int& score)
 //play the action card and report the instruction
 void Player::play(ActionCard&& card)
 {
+    card.setDrawn(true); //draw the card 
+
     if (card.isPlayable()) //first figure out if u can play the card
     {
-        card.setDrawn(true); //draw the card 
-
         std::string instruction = card.getInstruction(); //get the instruction store in instruction variable
         std::regex draw("DRAW (\\d+) CARD(\\(S\\))?"); //draw x card or cards
         std::regex play("PLAY (\\d+) CARD(\\(S\\))?"); //play x card or cards
@@ -83,7 +85,8 @@ void Player::play(ActionCard&& card)
             {
                 // auto y = pointdeck_->Draw(); //not allowed lvalue rvalue issue so combine these two sentences into this
                 // hand_.addCard(y);
-                hand_.addCard(pointdeck_->Draw());
+                //hand_.addCard(pointdeck_->Draw());
+                drawPointCard();
             }
         }
 

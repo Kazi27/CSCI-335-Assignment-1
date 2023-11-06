@@ -79,16 +79,16 @@ bool Deck<CardType>::IsEmpty() const
 template <typename CardType>
 void Deck<CardType>::Shuffle()
 {
-    std::mt19937 rng(2028358904); //random number generator using std::mt19937 with a seed
-    std::shuffle(cards_.begin(), cards_.end(), rng); //shuffle the cards using std::shuffle
+    std::mt19937 seed(2028358904); //random number generator using std::mt19937 with a seed
+    std::shuffle(cards_.begin(), cards_.end(), seed); //shuffle the cards using std::shuffle
 }
 
 //get size of the deck
 template <typename CardType>
 int Deck<CardType>::getSize() const
 {
-    //return (cards_.size()); works just trying smth
-    return (this->cards_.size());
+    return (cards_.size()); //works just trying smth
+    //return (this->cards_.size());
 }
 
 //get vector of the cards

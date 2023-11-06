@@ -34,25 +34,25 @@ Card::Card(const Card& rhs)
     drawn_ = rhs.drawn_;
 
     //also need to copy the bitmap but first check if rhs has a valid bitmap so:
-    // if (rhs.bitmap_ != nullptr)
-    // {
-    //     bitmap_ = new int[80]; 
-    //     for (int i = 0; i < 80; ++i) //i++ same as ++i
-    //     { 
-    //         bitmap_[i] = rhs.bitmap_[i]; 
-    //     }
-    // }
+    if (rhs.bitmap_ != nullptr)
+    {
+        bitmap_ = new int[80]; 
+        for (int i = 0; i < 80; ++i) //i++ same as ++i
+        { 
+            bitmap_[i] = rhs.bitmap_[i]; 
+        }
+    }
 
-    // if (rhs.bitmap_ == nullptr)
-    // {
-    //     bitmap_ = nullptr;
-    // }
+    if (rhs.bitmap_ == nullptr)
+    {
+        bitmap_ = nullptr;
+    }
 
-    bitmap_ = new int[80]; 
-    for (int i = 0; i < 80; ++i) //i++ same as ++i
-    { 
-        bitmap_[i] = rhs.bitmap_[i]; 
-    } 
+    // bitmap_ = new int[80]; 
+    // for (int i = 0; i < 80; ++i) //i++ same as ++i
+    // { 
+    //     bitmap_[i] = rhs.bitmap_[i]; 
+    // } 
 
 }
 

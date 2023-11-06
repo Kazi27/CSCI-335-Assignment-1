@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -O2
 
 PROG ?= main
-OBJS = Card.cpp ActionCard.cpp PointCard.cpp main.cpp
+OBJS = Card.cpp ActionCard.cpp PointCard.cpp Hand.cpp Player.cpp main.cpp
 
 all: $(PROG)
 

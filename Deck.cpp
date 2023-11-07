@@ -41,7 +41,7 @@ bool Deck<CardType>::IsEmpty() const
 
 //draw a card from the deck
 template <typename CardType>
-CardType Deck<CardType>::Draw() //&& means move
+CardType&& Deck<CardType>::Draw() //&& means move
 {
     // if (IsEmpty() == true)
     // {
@@ -56,6 +56,7 @@ CardType Deck<CardType>::Draw() //&& means move
         cards_.pop_back(); //remove that card from the deck
         return std::move(card); //return it as r value
     }
+    return CardType(); // new addition
 }   
 
 // template <typename CardType>

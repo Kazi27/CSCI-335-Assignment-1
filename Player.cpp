@@ -147,10 +147,10 @@ void Player::drawPointCard()
 //play point card and update score
 void Player::playPointCard()
 {
-    //if (!hand_.isEmpty() == true) //if hands not empty
-    //{
+    if (!hand_.isEmpty() == true) //if hands not empty
+    {
         score_ += hand_.PlayCard();
-    //}
+    }
 }
 
 //set opponent

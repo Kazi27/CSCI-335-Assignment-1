@@ -91,10 +91,10 @@ Card::Card(Card&& rhs)
     drawn_ = rhs.drawn_;
     
     //reset source obj's stuff
-    rhs.bitmap_ = nullptr;
-    rhs.cardType_ = POINT_CARD; //remember we set default to point b4
-    rhs.instruction_ = "";
-    rhs.drawn_ = false;
+//     rhs.bitmap_ = nullptr;
+//     rhs.cardType_ = POINT_CARD; //remember we set default to point b4
+//     rhs.instruction_ = "";
+//     rhs.drawn_ = false;
 }
 
 // Move Assignment Operator, ur essentially swapping 2 objects data members

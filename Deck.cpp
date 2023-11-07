@@ -31,6 +31,14 @@ void Deck<CardType>::AddCard(const CardType& card)
     cards_.push_back(card); //add the card ur passing to the cards_ vector
 }
 
+//is card_ empty or nah
+template <typename CardType>
+bool Deck<CardType>::IsEmpty() const
+{
+    return cards_.empty(); //works but trying smth
+    //return (cards_.size() == 0);
+}
+
 //draw a card from the deck
 template <typename CardType>
 CardType&& Deck<CardType>::Draw() //&& means move
@@ -66,14 +74,6 @@ CardType&& Deck<CardType>::Draw() //&& means move
 //     }
 //     return std::move(card);
 // } 
-
-//is card_ empty or nah
-template <typename CardType>
-bool Deck<CardType>::IsEmpty() const
-{
-    return cards_.empty(); works but trying smth
-    //return (cards_.size() == 0);
-}
 
 //shuffle the deck
 template <typename CardType>

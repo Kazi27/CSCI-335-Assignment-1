@@ -41,7 +41,7 @@ bool Deck<CardType>::IsEmpty() const
 
 //draw a card from the deck
 template <typename CardType>
-CardType&& Deck<CardType>::Draw() //&& means move
+CardType Deck<CardType>::Draw() //&& means move
 {
     // if (IsEmpty() == true)
     // {

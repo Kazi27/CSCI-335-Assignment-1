@@ -25,13 +25,13 @@ Player::~Player()
 {
     // delete actiondeck_;
     // delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
-    delete actiondeck_;
+    //delete actiondeck_;
     //actiondeck_ = nullptr;
 
-    delete pointdeck_;
+    //delete pointdeck_;
     //pointdeck_ = nullptr;
 
-    delete opponent_;
+    //delete opponent_;
     //opponent_ = nullptr;
 }
 

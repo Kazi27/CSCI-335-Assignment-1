@@ -128,6 +128,7 @@ void Player::drawPointCard()
 //     if (pointdeck_ != nullptr && !pointdeck_->IsEmpty())
 //     {
 //         PointCard&& card = pointdeck_->Draw(); // Draw a card from the point deck // added && for move
+//          PointCard card = pointdeck_->Draw(); // Draw a card from the point deck
 //         hand_.addCard(std::move(card)); // Add that card to the player's hand
 //     }
     if (pointdeck_ == nullptr)

@@ -71,8 +71,8 @@ CardType&& Deck<CardType>::Draw() //&& means move
 template <typename CardType>
 bool Deck<CardType>::IsEmpty() const
 {
-    //return cards_.empty(); works but trying smth
-    return (cards_.size() == 0);
+    return cards_.empty(); works but trying smth
+    //return (cards_.size() == 0);
 }
 
 //shuffle the deck
@@ -87,8 +87,8 @@ void Deck<CardType>::Shuffle()
 template <typename CardType>
 int Deck<CardType>::getSize() const
 {
-    return (cards_.size()); //works just trying smth
-    //return (this->cards_.size());
+    //return (cards_.size()); //works just trying smth
+    return (this->cards_.size());
 }
 
 //get vector of the cards

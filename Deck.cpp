@@ -52,8 +52,8 @@ CardType&& Deck<CardType>::Draw() //&& means move
     //if (!IsEmpty()) //its not empty
     {
         //cards_.back().setDrawn(true);
-        //CardType&& card = std::move(cards_.back()); //move the card from the back to top
-        CardType card = std::move(cards_.back()); //move the card from the back to top
+        CardType&& card = std::move(cards_.back()); //move the card from the back to top
+        //CardType card = std::move(cards_.back()); //player works
         cards_.pop_back(); //remove that card from the deck
         card.setDrawn(true);
         return std::move(card); //return it as r value

@@ -141,8 +141,8 @@ void Player::drawPointCard()
         return;
     }
 
-    //PointCard&& card = pointdeck_->Draw();
-    PointCard card = pointdeck_->Draw();
+    PointCard&& card = pointdeck_->Draw(); 
+    //PointCard card = pointdeck_->Draw(); //player works
     hand_.addCard(std::move(card));
 }
 

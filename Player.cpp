@@ -25,14 +25,14 @@ Player::~Player()
 {
     // delete actiondeck_;
     // delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
-    delete actiondeck_;
-    actiondeck_ = nullptr;
+    //delete actiondeck_;
+    //actiondeck_ = nullptr;
 
-    delete pointdeck_;
-    pointdeck_ = nullptr;
+    //delete pointdeck_;
+    //pointdeck_ = nullptr;
 
-    delete opponent_;
-    opponent_ = nullptr;
+    //delete opponent_;
+    //opponent_ = nullptr;
 }
 
 //get players hand
@@ -131,23 +131,20 @@ void Player::drawPointCard()
 //          PointCard card = pointdeck_->Draw(); // Draw a card from the point deck
 //         hand_.addCard(std::move(card)); // Add that card to the player's hand
 //     }
-    // if (pointdeck_ == nullptr)
-    // {
-    //     return;
-    // }
+    if (pointdeck_ == nullptr)
+    {
+        return;
+    }
 
-    // if (pointdeck_->IsEmpty())
-    // {
-    //     return;
-    // }
+    if (pointdeck_->IsEmpty())
+    {
+        return;
+    }
 
-    // PointCard&& card = pointdeck_->Draw(); //DECK works
-    // //PointCard card = pointdeck_->Draw(); //PLAYER works
+    //PointCard&& card = pointdeck_->Draw(); //DECK works
+    PointCard card = pointdeck_->Draw(); //PLAYER works
 
-    // hand_.addCard(std::move(card));
-    if (pointdeck_ != nullptr) {
-        hand_.addCard(std::move(pointdeck_->Draw()));
-    } 
+    hand_.addCard(std::move(card));
 }
 
 //play point card and update score

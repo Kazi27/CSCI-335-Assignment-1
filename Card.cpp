@@ -33,31 +33,20 @@ Card::Card(const Card& rhs)
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
 
-    if(rhs.bitmap_) 
+    //also need to copy the bitmap but first check if rhs has a valid bitmap so:
+    if (rhs.bitmap_ != nullptr)
     {
         bitmap_ = new int[80]; 
-        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, bitmap_);
-    } 
+        for (int i = 0; i < 80; ++i) //i++ same as ++i
+        { 
+            bitmap_[i] = rhs.bitmap_[i]; 
+        }
+    }
 
-    else 
+    if (rhs.bitmap_ == nullptr)
     {
         bitmap_ = nullptr;
     }
-
-    //also need to copy the bitmap but first check if rhs has a valid bitmap so:
-    // if (rhs.bitmap_ != nullptr)
-    // {
-    //     bitmap_ = new int[80]; 
-    //     for (int i = 0; i < 80; ++i) //i++ same as ++i
-    //     { 
-    //         bitmap_[i] = rhs.bitmap_[i]; 
-    //     }
-    // }
-
-    // if (rhs.bitmap_ == nullptr)
-    // {
-    //     bitmap_ = nullptr;
-    // }
 
     // bitmap_ = new int[80]; 
     // for (int i = 0; i < 80; ++i) //i++ same as ++i
@@ -75,38 +64,20 @@ Card& Card::operator=(const Card& rhs)
         return *this; //if current obj is same as rhs jus return bro
     }
 
-    delete[] bitmap_;
+    if (this != &rhs)
+    {
+        //*bitmap_ = *rhs.bitmap_; previous
+        delete[] bitmap_;
+        bitmap_ = new int[80]; 
+        for (int i = 0; i < 80; ++i) //i++ same as ++i
+        { 
+            bitmap_[i] = rhs.bitmap_[i]; 
+        }
 
-    cardType_ = rhs.cardType_;
-    instruction_ = rhs.instruction_;
-    drawn_ = rhs.drawn_;
-    
-    if(rhs.bitmap_) 
-    {
-        bitmap_ = new int[80];
-        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, bitmap_);
-    } 
-    else 
-    {
-        bitmap_ = nullptr;
+        cardType_ = rhs.cardType_;
+        instruction_ = rhs.instruction_;
+        drawn_ = rhs.drawn_;
     }
-    
-    return *this;
-
-    // if (this != &rhs)
-    // {
-    //     //*bitmap_ = *rhs.bitmap_; previous
-    //     delete[] bitmap_;
-    //     bitmap_ = new int[80]; 
-    //     for (int i = 0; i < 80; ++i) //i++ same as ++i
-    //     { 
-    //         bitmap_[i] = rhs.bitmap_[i]; 
-    //     }
-
-    //     cardType_ = rhs.cardType_;
-    //     instruction_ = rhs.instruction_;
-    //     drawn_ = rhs.drawn_;
-    // }
 }
 
 // Move Constructor, ur making a new obj and moving stuff from existing obj to there, setting exisiting obj priv data members to default
@@ -121,9 +92,9 @@ Card::Card(Card&& rhs)
     
     //reset source obj's stuff
     rhs.bitmap_ = nullptr;
-    // rhs.cardType_ = POINT_CARD; //remember we set default to point b4
-    // rhs.instruction_ = "";
-    // rhs.drawn_ = false;
+    rhs.cardType_ = POINT_CARD; //remember we set default to point b4
+    rhs.instruction_ = "";
+    rhs.drawn_ = false;
 }
 
 // Move Assignment Operator, ur essentially swapping 2 objects data members

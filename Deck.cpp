@@ -48,25 +48,22 @@ CardType&& Deck<CardType>::Draw() //&& means move
     //     return false;
     // }
 
-    // if (IsEmpty() == false) 
-    // //if (!IsEmpty()) //its not empty
-    // {
-    //     //cards_.back().setDrawn(true);
-    //     //move the card from the back to top
+    if (IsEmpty() == false) 
+    //if (!IsEmpty()) //its not empty
+    {
+        //cards_.back().setDrawn(true);
+        //move the card from the back to top
 
-    //     CardType&& card = std::move(cards_.back()); //DECK works 
-    //     //CardType card = std::move(cards_.back()); //PLAYER works
+        //CardType&& card = std::move(cards_.back()); //DECK works 
+        CardType card = std::move(cards_.back()); //PLAYER works
 
-    //     cards_.pop_back(); //remove that card from the deck
-    //     card.setDrawn(true);
-    //     return std::move(card); //return it as r value
-    //     //return card;
-    // }
-    // return CardType(); // new addition, makes player work
-    // //return card; //this makes player not work aka 34
-    CardType &&card = std::move(cards_.back());
-    cards_.pop_back();
-    return std::move(card);
+        cards_.pop_back(); //remove that card from the deck
+        card.setDrawn(true);
+        return std::move(card); //return it as r value
+        //return card;
+    }
+    return CardType(); // new addition, makes player work
+    //return card; //this makes player not work aka 34
 }   
 
 // template <typename CardType>

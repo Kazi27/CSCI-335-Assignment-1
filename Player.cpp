@@ -120,7 +120,7 @@ void Player::drawPointCard()
     //auto temp = pointdeck_->Draw(); //auto to simplify type, draw from point card store it in temp
     //hand_.addCard(temp); //add that card to hand
     //thats not allowed, lvalue cant be case as rvalue witjout move so combining the two works:
-    if (pointdeck_ != nullptr) //as long as the point deck isnt empty
+    /if (pointdeck_ != nullptr) //as long as the point deck isnt empty
     {
         hand_.addCard(pointdeck_->Draw());
     }
@@ -129,7 +129,7 @@ void Player::drawPointCard()
 //play point card and update score
 void Player::playPointCard()
 {
-    if (!hand_.isEmpty() == true) //if hands not empty
+    //if (!hand_.isEmpty() == true) //if hands not empty
     {
         score_ += hand_.PlayCard();
     }

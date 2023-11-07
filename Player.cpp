@@ -122,8 +122,14 @@ void Player::drawPointCard()
     //thats not allowed, lvalue cant be case as rvalue witjout move so combining the two works:
     //if (pointdeck_ != nullptr) //as long as the point deck isnt empty
     //{
-        hand_.addCard(pointdeck_->Draw());
+        //hand_.addCard(pointdeck_->Draw());
     //}
+
+    if (pointdeck_ != nullptr && !pointdeck_->IsEmpty())
+    {
+        PointCard card = pointdeck_->Draw(); // Draw a card from the point deck
+        hand_.addCard(std::move(card)); // Add that card to the player's hand
+    }
 }
 
 //play point card and update score

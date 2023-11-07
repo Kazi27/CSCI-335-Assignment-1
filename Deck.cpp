@@ -57,7 +57,8 @@ CardType&& Deck<CardType>::Draw() //&& means move
         return std::move(card); //return it as r value
         //return card;
     }
-    return CardType(); // new addition
+    //return CardType(); // new addition
+    return card;
 }   
 
 // template <typename CardType>

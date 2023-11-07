@@ -26,13 +26,13 @@ Player::~Player()
     // delete actiondeck_;
     // delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
     delete actiondeck_;
-    actiondeck_ = nullptr;
+    //actiondeck_ = nullptr;
 
     delete pointdeck_;
-    pointdeck_ = nullptr;
+    //pointdeck_ = nullptr;
 
     delete opponent_;
-    opponent_ = nullptr;
+    //opponent_ = nullptr;
 }
 
 //get players hand
@@ -121,18 +121,18 @@ void Player::drawPointCard()
     //hand_.addCard(temp); //add that card to hand
     //thats not allowed, lvalue cant be case as rvalue witjout move so combining the two works:
     //if (pointdeck_ != nullptr) //as long as the point deck isnt empty
-    {
+    //{
         hand_.addCard(pointdeck_->Draw());
-    }
+    //}
 }
 
 //play point card and update score
 void Player::playPointCard()
 {
     //if (!hand_.isEmpty() == true) //if hands not empty
-    {
+    //{
         score_ += hand_.PlayCard();
-    }
+    //}
 }
 
 //set opponent

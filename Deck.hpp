@@ -40,8 +40,8 @@ class Deck
          * @pre: the deck is not empty
          * @return the right hand value of type CardType 
          */
-        //CardType&& Draw();
-        CardType Draw();
+        CardType&& Draw();
+        //CardType Draw();
 
         /**
          * @return if the deck is empty 

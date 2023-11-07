@@ -51,7 +51,7 @@ void Deck<CardType>::AddCard(const CardType& card)
 // }   
 
 template <typename CardType>
-CardType Deck<CardType>::Draw() 
+CardType&& Deck<CardType>::Draw() 
 { 
     if (cards_.size() != 0) 
     {

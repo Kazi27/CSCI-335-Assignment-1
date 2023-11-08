@@ -15,6 +15,7 @@ PointCard::PointCard() : Card()
     setImageData(nullptr);
     setDrawn(false);
     //point card is a typa card so u inherit it from card class and defualt is point so u dont even need to change the cardtype_
+    //UPDATE yea u do now cause in ur card.cpp constructor u dont have it default to point card
 } 
 
 bool PointCard::isPlayable() //check if the point card is playable
@@ -25,22 +26,24 @@ bool PointCard::isPlayable() //check if the point card is playable
         return false;
     }
 
+    //V1 works
     //convert instruction to integer and then check if its greater than 99 or less than 1 which means its not within the range so not playable
     // if (stoi(getInstruction()) > 99 || stoi(getInstruction()) < 1) 
     // {
     //     return false;
     // }
-
     // return true; //if ur here it means card has been drawn and the points are withing 1 and 99 meaning it is playable
-    const std::string& instruction = getInstruction();
-    for (char c : instruction) 
+
+    //V2 works but efficienter?
+    const std::string& x = getInstruction(); //x is gonna hold the instruction string thats returned from get isntruction
+    for (char c : x) //iterate thru each character c in string x
     { 
-        if (!isdigit(c)) 
+        if (isdigit(c) == false) //for each charachter u encounter, check if its a digit. only enter the ifstatement if it is not a digit
         {  
-            return false; 
+            return false; //return false if its not a digit
         }
     }
-    return true; // if all are digit u can play
+    return true; //if ur here it means all the digits are digits and its playbale
 } 
 
 void PointCard::Print() const 
@@ -55,7 +58,7 @@ void PointCard::Print() const
 
     if (getImageData() != nullptr)  
     {
-        for (int i = 0; i < 80; ++i) 
+        for (int i = 0; i < 80; ++i) //prof said ++i is better than i++ cuz in i++ u do a copy
         {
             std::cout << getImageData()[i];
         }

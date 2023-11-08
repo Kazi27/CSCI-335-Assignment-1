@@ -16,8 +16,9 @@ Hand::Hand()
 }
 
 //destructor
-Hand::~Hand() = default;
+Hand::~Hand() = default; //proff said no defaults but like this works lmao
 //{
+    //V2 that does work but defualt v1 works better
     // while(!this->isEmpty()) //as long as obj isnt empty popback aka delete
     // {
     //     cards_.pop_back();
@@ -27,27 +28,33 @@ Hand::~Hand() = default;
 //copy constructor
 Hand::Hand(const Hand& other)
 {
+    //V1 iterating thru each
     // for (auto card : other.cards_) //auto to simplify type, iterate over all the cards in other hand
     // {
     //     cards_.push_back(card); //copy each card from other to this
     // }
-    cards_ = other.cards_;
+
+    //v2 efficienter
+    cards_ = other.cards_; //similar approach to prev copy constructors
 }
 
 //copy assignment operator
 Hand& Hand::operator=(const Hand& other)
 {
+    //V1 self assignemtn check but not efficienter than v2
     // if (this == &other) //& for refrence use in copy assignment, this is chcking for self assignemnt
     // {
     //     return *this; //a pointer that points to current obj
     // }
 
-    if (this != &other) 
+    //V2, figured out ur gonna be returning Hand& anyways so combined the two returns
+    if (this != &other) //self assignment check, if theyre not equal then cards_ = other.cards_
     { 
         cards_ = other.cards_; 
     }
-    return *this;
+    return *this; //in any case ur return type is Hand& so u wanna return this even if u changed something or didnt cause it didnt pass self assignment
 
+    //V1 part 2
     // if (this != &other) 
     // {
     //     cards_ = other.cards_;
@@ -76,6 +83,7 @@ Hand::Hand(Hand&& other)
 //Move assignment operator
 Hand& Hand::operator=(Hand&& other)
 {
+    //V1 less efficient
     // if (this == &other) //self assignment
     // {
     //     return *this;
@@ -84,11 +92,12 @@ Hand& Hand::operator=(Hand&& other)
     // cards_ = std::move(other.cards_);
     // return *this;
 
+    //V2 works cause ur gonna return Hand& anywyas so might as well combine the two return statements
     if (this != &other) 
     {
-        cards_ =  std::move(other.cards_);
+        cards_ =  std::move(other.cards_); //look at copy assignment explanation
     }
-    return *this;
+    return *this; 
 }
 
 //get cards
@@ -119,12 +128,14 @@ void Hand::Reverse()
 //play card front of hand, remove it from hand, exception if hand empty or card unplayable in which case remove that card from hand
 int Hand::PlayCard()
 {
+    //V1 + V2 check
     if (isEmpty())
     {
         //return 0;
-        throw std::runtime_error("empty hand"); //throw exception
+        throw std::runtime_error("empty hand"); //throw exception as defined in hpp
     }
 
+    //V1
     // PointCard card2play = std::move(cards_.front()); //front card from hand
 
     // cards_.pop_front(); //remove card from hand
@@ -139,6 +150,7 @@ int Hand::PlayCard()
     //     return 0; //card not played so 0pts
     // }
 
+    //V2 honestly simpler and better form of V1 without edge cases
     int playcardvalue = std::stoi(cards_.front().getInstruction());
     cards_.pop_front();
     return playcardvalue;

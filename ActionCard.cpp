@@ -11,6 +11,7 @@ ActionCard.cpp defines the member functions for the ActionCard class.
 ActionCard::ActionCard() : Card()
 {
     //action card is a typa card so u inherit it from card class but defualt is point so u need to change the cardtype_
+    //UPDATE: now that u dont have it pointcard by default, u gotta settype in point too, also initialize here jsut in case even if ur inherting
     setType(ACTION_CARD);
     setDrawn(false);
     setInstruction("");
@@ -19,12 +20,14 @@ ActionCard::ActionCard() : Card()
 
 bool ActionCard::isPlayable() 
 {
+    //V1 + V2 check that works
     //checks whether the card is playable or no so first check if the card is drawm if not drawn it cant be played, undrawn = no play
     if (getDrawn() == false) 
     {
         return false;
     }
 
+    //V2 that also works, deoends on the regex pattern
     // if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") //if action is these 2, return true
     // {
     //     return true;
@@ -42,8 +45,10 @@ bool ActionCard::isPlayable()
     // }
 
     // return true; 
-    std::regex validInstruction(R"(^(DRAW \d+ CARD\(S\)|PLAY \d+ CARD\(S\)|REVERSE HAND|SWAP HAND WITH OPPONENT)$)");
-    return std::regex_match(getInstruction(), validInstruction); //if ur here it means cards drawn and follows the pattern of instruction so it is playable fr
+
+    //V2 regex that works locally AND on gradescope
+    std::regex format(R"(^(DRAW \d+ CARD\(S\)|PLAY \d+ CARD\(S\)|REVERSE HAND|SWAP HAND WITH OPPONENT)$)"); //good
+    return std::regex_match(getInstruction(), format); //regex_match returns bool val after checking getinstr w format, OLD -- running if ur here it means cards drawn and follows the pattern of instruction so it is playable fr
 }
 
 void ActionCard::Print() const 
@@ -61,7 +66,7 @@ void ActionCard::Print() const
         for (int i = 0; i < 80; ++i) 
         {  
             std::cout << getImageData()[i];
-            std::cout << std::endl;
+            std::cout << std::endl; //do this here but not print in point
         }
     } 
 }

@@ -13,7 +13,7 @@ Card.cpp defines the member functions for the Card class.
 Card::Card() 
 {
     //creates a new Card object
-    //cardType_ = POINT_CARD;  //set an initial type like point card (default ig)
+    //cardType_ = POINT_CARD;  //set an initial type like point card (default ig) //update - removed cuz i do it in the action/point now
     instruction_ = "";       //set an initial instruction, empty in this case
     drawn_ = false;          //set the initial drawn status like flase
     bitmap_ = nullptr;       //image data pointer to nullptr.
@@ -30,11 +30,13 @@ Card::~Card()
 Card::Card(const Card& rhs) 
 {
     //creates a new Card object by copying another Card object (rhs) by copying all it's data members
+    //update - bitmap instead of iterating thru a forloop, treating it like every other data member worked
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
     bitmap_=rhs.bitmap_;
 
+    //OLD VERSION KAZI27 COMMIT 56d10a98b11c8ee3e86045e87b2b8f8ea65fe80 
     //also need to copy the bitmap but first check if rhs has a valid bitmap so:
     // if (rhs.bitmap_ != nullptr)
     // {
@@ -68,6 +70,7 @@ Card& Card::operator=(const Card& rhs)
 
     if (this != &rhs)
     {
+        //v1 that works
         //*bitmap_ = *rhs.bitmap_; previous
         // delete[] bitmap_;
         // bitmap_ = new int[80]; 
@@ -75,10 +78,12 @@ Card& Card::operator=(const Card& rhs)
         // { 
         //     bitmap_[i] = rhs.bitmap_[i]; 
         // }
+
+        //v2 that makes use of copy isntead of looping
         if (rhs.bitmap_) 
         {
             bitmap_ = new int[80];
-            std::copy(rhs.bitmap_, rhs.bitmap_ + 80, bitmap_);
+            std::copy(rhs.bitmap_, rhs.bitmap_ + 80, bitmap_); //PROFF SAID U CAN USE COPY..TO COPY LMAO
         }
 
         cardType_ = rhs.cardType_;
@@ -90,16 +95,21 @@ Card& Card::operator=(const Card& rhs)
 // Move Constructor, ur making a new obj and moving stuff from existing obj to there, setting exisiting obj priv data members to default
 Card::Card(Card&& rhs) 
 {
+    //v1 that works
     //move the contents of Card object (rhs) into another (*this) and then set rhs priv data members to default vals
     // cardType_ = rhs.cardType_;
     //instruction_ = rhs.instruction_;// previous
     // instruction_ = std::move(rhs.instruction_);
     // bitmap_ = rhs.bitmap_;
     // drawn_ = rhs.drawn_;
-    cardType_ = std::move(rhs.cardType_);
-    instruction_ = std::move(rhs.instruction_);
+
+    //v2 that works better than manual movement in v1
+    instruction_ = std::move(rhs.instruction_); //all of this needs the <utility>
+    cardType_ = std::move(rhs.cardType_); 
     bitmap_ = std::move(rhs.bitmap_);
     drawn_ = std::move(rhs.drawn_);
+
+    //v1 trying stuff
     //reset source obj's stuff
     // rhs.bitmap_ = nullptr;
     // rhs.cardType_ = POINT_CARD; //remember we set default to point b4
@@ -110,6 +120,7 @@ Card::Card(Card&& rhs)
 // Move Assignment Operator, ur essentially swapping 2 objects data members
 Card& Card::operator=(Card&& rhs) 
 {
+    //v1 that works
     // if (this == &rhs) //self assignment
     // { 
     //     return *this; 
@@ -126,12 +137,16 @@ Card& Card::operator=(Card&& rhs)
     // drawn_ = rhs.drawn_; 
     // rhs.bitmap_ = nullptr; 
     // return *this;
-    cardType_ = std::move(rhs.cardType_);
-    instruction_ = std::move(rhs.instruction_);
+
+    //v2 that works better than manual movement in v1
+    instruction_ = std::move(rhs.instruction_); //all of this needs the <utility>
+    cardType_ = std::move(rhs.cardType_); 
     bitmap_ = std::move(rhs.bitmap_);
     drawn_ = std::move(rhs.drawn_);
-    return *this;
+    return *this; //only diff from this and move constructor above is that here ur returning but constructor no return
 }
+
+//IF UR CARD DOESNT WORK, ITS PROLLY FROM THE ABOVE STUFF BECAUSE BELOW IS SIMPLE STUFF
 
 //get the type fo the card via getter
 std::string Card::getType() const 

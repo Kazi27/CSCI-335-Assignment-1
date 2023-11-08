@@ -11,28 +11,26 @@ Player.cpp defines the member functions for the Player class.
 //default constructor
 Player::Player()
 {
-    //hand_ = Hand(); //call constructor
     score_ = 0;
+    // V1 hand_ = Hand(); //call constructor
     opponent_ = nullptr;
-    // actiondeck_ = new Deck<ActionCard>();
-    // pointdeck_ = new Deck<PointCard>();]
+    // V1 actiondeck_ = new Deck<ActionCard>();
     actiondeck_ = nullptr;
+    // V1 pointdeck_ = new Deck<PointCard>();]
     pointdeck_ = nullptr;
 }
 
 //destructor
 Player::~Player()
 {
-    // delete actiondeck_;
-    // delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
+    // V1 delete actiondeck_;
+    // V1 delete pointdeck_; //dynamic mem allocation taking place need to use delete keyword cause u initialzied with new
     delete actiondeck_;
-    //actiondeck_ = nullptr;
-
+    // V2 actiondeck_ = nullptr; //u can have this or not
     delete pointdeck_;
-    //pointdeck_ = nullptr;
-
+    // V2 pointdeck_ = nullptr;
     delete opponent_;
-    //opponent_ = nullptr;
+    //V2 opponent_ = nullptr;
 }
 
 //get players hand
@@ -62,48 +60,51 @@ void Player::setScore(const int& score)
 //play the action card and report the instruction
 void Player::play(ActionCard&& card)
 {
-    std::string instr = card.getInstruction();
-    std::cout << "PLAYING ACTION CARD: " << instr << std::endl;
-    std::regex drawRegex("DRAW (\\d+) CARD(S)?");
-    std::regex playRegex("PLAY (\\d+) CARD(S)?");
-    std::smatch match;
+    //Below is V1 but V2 also works
+    std::string instruct = card.getInstruction(); //get instruction store it in instruct
+    std::cout << "PLAYING ACTION CARD: " << instruct << std::endl; //print that like the hpp asks u to do
+    std::regex draw("DRAW (\\d+) CARD(S)?"); //this is the draw format
+    std::regex play("PLAY (\\d+) CARD(S)?"); //this is the play format
+    std::smatch format; //format is format
 
-    if(std::regex_search(instr, match, playRegex)) 
+    if(std::regex_search(instruct, format, play)) //match instruct w play format and if its a match then enter
     {
-        int num = std::stoi(match[1].str());
-        for (int i = 0; i < num; ++i) 
+        int a = std::stoi(format[1].str()); //remember instructieons were ins tring so convert them into int
+        for (int i = 0; i < a; ++i) 
         {
-            if(hand_.isEmpty())
+            if(hand_.isEmpty()) //empty? draw it then but no empty? play it then
             {
-                drawPointCard();
+                drawPointCard(); //if ur hands empty first draw it
             }
-            playPointCard();
+            playPointCard(); //then play it
         }
     } 
     
-    else if(std::regex_search(instr, match, drawRegex)) 
+    else if(std::regex_search(instruct, format, draw)) //if ur here it didnt match w play sotry matching w draw format and if its a match then enter
     {
-        int num = std::stoi(match[1].str());
-        for (int i = 0; i < num; ++i) 
+        int z = std::stoi(format[1].str()); //remember instructieons were ins tring so convert them into int
+        for (int i = 0; i < z; ++i) 
         {
-            drawPointCard();
+            drawPointCard(); //draw
         }
     } 
     
-    else if(instr == "SWAP HAND WITH OPPONENT") 
+    else if(instruct == "SWAP HAND WITH OPPONENT") //if ur here none of the formats matched so maybe its a swap
     {
         if (opponent_) 
         {
-            Hand tempHand = opponent_->getHand();
+            Hand oppHand = opponent_->getHand(); //basic swap, can also use std::swap i beleive
             opponent_->setHand(this->getHand());
-            this->setHand(tempHand);
+            this->setHand(oppHand);
         }
     } 
     
-    else if(instr == "REVERSE HAND") 
+    else if(instruct == "REVERSE HAND") //if ur here nothing else matched so its a reverse which u implemented earlier so call that
     {
         hand_.Reverse();
     }
+    
+    //V2 ALSO WORKS
     // card.setDrawn(true); //draw the card 
 
     // if (card.isPlayable()) //first figure out if u can play the card
@@ -159,6 +160,7 @@ void Player::play(ActionCard&& card)
 //draw point card into hand
 void Player::drawPointCard()
 {
+    //V1
     //auto temp = pointdeck_->Draw(); //auto to simplify type, draw from point card store it in temp
     //hand_.addCard(temp); //add that card to hand
     //thats not allowed, lvalue cant be case as rvalue witjout move so combining the two works:
@@ -188,10 +190,11 @@ void Player::drawPointCard()
 
     // hand_.addCard(std::move(card));
 
-    if (pointdeck_ != nullptr && !pointdeck_->IsEmpty ())
+    //SIMPLIFIED V1 INTO V2, BETTER EFFICIENTLY AND SIMPLER TO UNDERSTAND LMOA
+    if (pointdeck_ != nullptr && !pointdeck_->IsEmpty ()) //combine the two conditions
     {
         PointCard card = pointdeck_->Draw();
-        hand_. addCard(std:: move (card));
+        hand_.addCard(std::move(card));
     }
 }
 

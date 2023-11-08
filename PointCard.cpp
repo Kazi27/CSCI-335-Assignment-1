@@ -10,7 +10,10 @@ PointCard.cpp defines the member functions for the PointCard class.
 
 PointCard::PointCard() : Card()
 { 
-    setInstruction("0");
+    setInstruction("");
+    setType(POINT_CARD);
+    setImageData(nullptr);
+    setDrawn(false);
     //point card is a typa card so u inherit it from card class and defualt is point so u dont even need to change the cardtype_
 } 
 
@@ -23,12 +26,21 @@ bool PointCard::isPlayable() //check if the point card is playable
     }
 
     //convert instruction to integer and then check if its greater than 99 or less than 1 which means its not within the range so not playable
-    if (stoi(getInstruction()) > 99 || stoi(getInstruction()) < 1) 
-    {
-        return false;
-    }
+    // if (stoi(getInstruction()) > 99 || stoi(getInstruction()) < 1) 
+    // {
+    //     return false;
+    // }
 
-    return true; //if ur here it means card has been drawn and the points are withing 1 and 99 meaning it is playable
+    // return true; //if ur here it means card has been drawn and the points are withing 1 and 99 meaning it is playable
+    const std::string& instruction = getInstruction();
+    for (char c : instruction) 
+    { 
+        if (!isdigit(c)) 
+        {  
+            return false; 
+        }
+    }
+    return true; // if all are digit u can play
 } 
 
 void PointCard::Print() const 
@@ -43,6 +55,9 @@ void PointCard::Print() const
 
     if (getImageData() != nullptr)  
     {
-        std::cout << getImageData();
+        for (int i = 0; i < 80; ++i) 
+        {
+            std::cout << getImageData()[i];
+        }
     }
 }

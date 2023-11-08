@@ -7,12 +7,13 @@ Card.cpp defines the member functions for the Card class.
 */
 
 #include "Card.hpp"
+#include <utility> //move error squiggles goes away after doing this
 
 // Default Constructor
 Card::Card() 
 {
     //creates a new Card object
-    cardType_ = POINT_CARD;  //set an initial type like point card (default ig)
+    //cardType_ = POINT_CARD;  //set an initial type like point card (default ig)
     instruction_ = "";       //set an initial instruction, empty in this case
     drawn_ = false;          //set the initial drawn status like flase
     bitmap_ = nullptr;       //image data pointer to nullptr.
@@ -32,21 +33,22 @@ Card::Card(const Card& rhs)
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
+    bitmap_=rhs.bitmap_;
 
     //also need to copy the bitmap but first check if rhs has a valid bitmap so:
-    if (rhs.bitmap_ != nullptr)
-    {
-        bitmap_ = new int[80]; 
-        for (int i = 0; i < 80; ++i) //i++ same as ++i
-        { 
-            bitmap_[i] = rhs.bitmap_[i]; 
-        }
-    }
+    // if (rhs.bitmap_ != nullptr)
+    // {
+    //     bitmap_ = new int[80]; 
+    //     for (int i = 0; i < 80; ++i) //i++ same as ++i
+    //     { 
+    //         bitmap_[i] = rhs.bitmap_[i]; 
+    //     }
+    // }
 
-    if (rhs.bitmap_ == nullptr)
-    {
-        bitmap_ = nullptr;
-    }
+    // if (rhs.bitmap_ == nullptr)
+    // {
+    //     bitmap_ = nullptr;
+    // }
 
     // bitmap_ = new int[80]; 
     // for (int i = 0; i < 80; ++i) //i++ same as ++i
@@ -67,11 +69,16 @@ Card& Card::operator=(const Card& rhs)
     if (this != &rhs)
     {
         //*bitmap_ = *rhs.bitmap_; previous
-        delete[] bitmap_;
-        bitmap_ = new int[80]; 
-        for (int i = 0; i < 80; ++i) //i++ same as ++i
-        { 
-            bitmap_[i] = rhs.bitmap_[i]; 
+        // delete[] bitmap_;
+        // bitmap_ = new int[80]; 
+        // for (int i = 0; i < 80; ++i) //i++ same as ++i
+        // { 
+        //     bitmap_[i] = rhs.bitmap_[i]; 
+        // }
+        if (rhs.bitmap_) 
+        {
+            bitmap_ = new int[80];
+            std::copy(rhs.bitmap_, rhs.bitmap_ + 80, bitmap_);
         }
 
         cardType_ = rhs.cardType_;
@@ -84,38 +91,45 @@ Card& Card::operator=(const Card& rhs)
 Card::Card(Card&& rhs) 
 {
     //move the contents of Card object (rhs) into another (*this) and then set rhs priv data members to default vals
-    cardType_ = rhs.cardType_;
+    // cardType_ = rhs.cardType_;
     //instruction_ = rhs.instruction_;// previous
+    // instruction_ = std::move(rhs.instruction_);
+    // bitmap_ = rhs.bitmap_;
+    // drawn_ = rhs.drawn_;
+    cardType_ = std::move(rhs.cardType_);
     instruction_ = std::move(rhs.instruction_);
-    bitmap_ = rhs.bitmap_;
-    drawn_ = rhs.drawn_;
-    
+    bitmap_ = std::move(rhs.bitmap_);
+    drawn_ = std::move(rhs.drawn_);
     //reset source obj's stuff
-    rhs.bitmap_ = nullptr;
-    rhs.cardType_ = POINT_CARD; //remember we set default to point b4
-    rhs.instruction_ = "";
-    rhs.drawn_ = false;
+    // rhs.bitmap_ = nullptr;
+    // rhs.cardType_ = POINT_CARD; //remember we set default to point b4
+    // rhs.instruction_ = "";
+    // rhs.drawn_ = false;
 }
 
 // Move Assignment Operator, ur essentially swapping 2 objects data members
 Card& Card::operator=(Card&& rhs) 
 {
-    if (this == &rhs) //self assignment
-    { 
-        return *this; 
-    } 
-    
+    // if (this == &rhs) //self assignment
+    // { 
+    //     return *this; 
+    // } 
     // std::swap (bitmap_, rhs.bitmap_);
     // std::swap (cardType_, rhs.cardType_);
     // std::swap (instruction_, rhs.instruction_);
     // std::swap (drawn_, rhs.drawn_);
     // return *this;
-    delete[] bitmap_; 
-    cardType_ = rhs.cardType_; 
-    instruction_ = std::move(rhs.instruction_); 
-    bitmap_ = rhs.bitmap_; 
-    drawn_ = rhs.drawn_; 
-    rhs.bitmap_ = nullptr; 
+    // delete[] bitmap_; 
+    // cardType_ = rhs.cardType_; 
+    // instruction_ = std::move(rhs.instruction_); 
+    // bitmap_ = rhs.bitmap_; 
+    // drawn_ = rhs.drawn_; 
+    // rhs.bitmap_ = nullptr; 
+    // return *this;
+    cardType_ = std::move(rhs.cardType_);
+    instruction_ = std::move(rhs.instruction_);
+    bitmap_ = std::move(rhs.bitmap_);
+    drawn_ = std::move(rhs.drawn_);
     return *this;
 }
 
@@ -131,6 +145,11 @@ std::string Card::getType() const
     {
         return "ACTION_CARD";
     } 
+
+    else
+    {
+        return "";
+    }
 }
 
 //setter sets card type based on the param

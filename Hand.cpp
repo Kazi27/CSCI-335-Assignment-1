@@ -16,36 +16,49 @@ Hand::Hand()
 }
 
 //destructor
-Hand::~Hand()
-{
-    while(!this->isEmpty()) //as long as obj isnt empty popback aka delete
-    {
-        cards_.pop_back();
-    }
-}
+Hand::~Hand() = default;
+//{
+    // while(!this->isEmpty()) //as long as obj isnt empty popback aka delete
+    // {
+    //     cards_.pop_back();
+    // }
+//}
 
 //copy constructor
 Hand::Hand(const Hand& other)
 {
-    for (auto card : other.cards_) //auto to simplify type, iterate over all the cards in other hand
-    {
-        cards_.push_back(card); //copy each card from other to this
-    }
+    // for (auto card : other.cards_) //auto to simplify type, iterate over all the cards in other hand
+    // {
+    //     cards_.push_back(card); //copy each card from other to this
+    // }
+    cards_ = other.cards_;
 }
 
 //copy assignment operator
 Hand& Hand::operator=(const Hand& other)
 {
-    if (this == &other) //& for refrence use in copy assignment, this is chcking for self assignemnt
-    {
-        return *this; //a pointer that points to current obj
-    }
+    // if (this == &other) //& for refrence use in copy assignment, this is chcking for self assignemnt
+    // {
+    //     return *this; //a pointer that points to current obj
+    // }
 
-    for (auto card : other.cards_)
-    {
-        this->cards_.push_back(card); //copies cards from other and pushes it into this card obj
+    if (this != &other) 
+    { 
+        cards_ = other.cards_; 
     }
     return *this;
+
+    // if (this != &other) 
+    // {
+    //     cards_ = other.cards_;
+    //     return *this;
+    // }
+
+    // for (auto card : other.cards_)
+    // {
+    //     this->cards_.push_back(card); //copies cards from other and pushes it into this card obj
+    // }
+    // return *this;
 
     // if (this != &other) //not needed
     // {
@@ -63,12 +76,18 @@ Hand::Hand(Hand&& other)
 //Move assignment operator
 Hand& Hand::operator=(Hand&& other)
 {
-    if (this == &other) //self assignment
-    {
-        return *this;
-    }
+    // if (this == &other) //self assignment
+    // {
+    //     return *this;
+    // }
 
-    cards_ = std::move(other.cards_);
+    // cards_ = std::move(other.cards_);
+    // return *this;
+
+    if (this != &other) 
+    {
+        cards_ =  std::move(other.cards_);
+    }
     return *this;
 }
 
@@ -106,17 +125,21 @@ int Hand::PlayCard()
         throw std::runtime_error("empty hand"); //throw exception
     }
 
-    PointCard card2play = std::move(cards_.front()); //front card from hand
+    // PointCard card2play = std::move(cards_.front()); //front card from hand
 
-    cards_.pop_front(); //remove card from hand
+    // cards_.pop_front(); //remove card from hand
 
-    if (card2play.isPlayable() == true) //if card playable
-    {
-        return (std::stoi(card2play.getInstruction())); //return points player gets after playing it
-    }
+    // if (card2play.isPlayable() == true) //if card playable
+    // {
+    //     return (std::stoi(card2play.getInstruction())); //return points player gets after playing it
+    // }
 
-    if (card2play.isPlayable() == false)
-    {
-        return 0; //card not played so 0pts
-    }
+    // if (card2play.isPlayable() == false)
+    // {
+    //     return 0; //card not played so 0pts
+    // }
+
+    int playcardvalue = std::stoi(cards_.front().getInstruction());
+    cards_.pop_front();
+    return playcardvalue;
 }

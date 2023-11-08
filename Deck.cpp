@@ -20,6 +20,7 @@ Deck<CardType>::Deck()
 template <typename CardType>
 Deck<CardType>::~Deck()
 {
+    cards_.clear();
     //delete cards_;
     //cards is a vector so you don't hav to worry abt deleting it, it deletes itself when ur done w the program
 }
@@ -48,22 +49,34 @@ CardType&& Deck<CardType>::Draw() //&& means move
     //     return false;
     // }
 
-    if (IsEmpty() == false) 
+    //if (IsEmpty() == false) 
     //if (!IsEmpty()) //its not empty
-    {
+    //{
         //cards_.back().setDrawn(true);
         //move the card from the back to top
 
         //CardType&& card = std::move(cards_.back()); //DECK works 
-        CardType card = std::move(cards_.back()); //PLAYER works
+        //CardType card = std::move(cards_.back()); //PLAYER works
 
-        cards_.pop_back(); //remove that card from the deck
-        card.setDrawn(true);
-        return std::move(card); //return it as r value
+        //cards_.pop_back(); //remove that card from the deck
+        //card.setDrawn(true);
+        //return std::move(card); //return it as r value
         //return card;
-    }
-    return CardType(); // new addition, makes player work
+    //}
+    //return CardType(); // new addition, makes player work
     //return card; //this makes player not work aka 34
+
+    if (!IsEmpty()) 
+    {
+        CardType&& frontCard = std::move(cards_.back());
+        cards_.pop_back();
+        return std::move(frontCard); 
+    } 
+    
+    else
+    {
+        return CardType();
+    }
 }   
 
 // template <typename CardType>
@@ -87,8 +100,11 @@ CardType&& Deck<CardType>::Draw() //&& means move
 template <typename CardType>
 void Deck<CardType>::Shuffle()
 {
-    std::mt19937 seed(2028358904); //random number generator using std::mt19937 with a seed
-    std::shuffle(cards_.begin(), cards_.end(), seed); //shuffle the cards using std::shuffle
+    //std::mt19937 seed(2028358904); //random number generator using std::mt19937 with a seed
+    //std::shuffle(cards_.begin(), cards_.end(), seed); //shuffle the cards using std::shuffle
+    std::mt19937 rng;
+    rng.seed(2028358904);
+    std::shuffle(cards_.begin(), cards_.end(), rng);
 }
 
 //get size of the deck
@@ -96,7 +112,8 @@ template <typename CardType>
 int Deck<CardType>::getSize() const
 {
     //return (cards_.size()); //works just trying smth
-    return (this->cards_.size());
+    //return (this->cards_.size());
+    return static_cast<int>(cards_.size());
 }
 
 //get vector of the cards

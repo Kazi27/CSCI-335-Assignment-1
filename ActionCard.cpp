@@ -12,6 +12,9 @@ ActionCard::ActionCard() : Card()
 {
     //action card is a typa card so u inherit it from card class but defualt is point so u need to change the cardtype_
     setType(ACTION_CARD);
+    setDrawn(false);
+    setInstruction("");
+    setImageData(nullptr);
 }
 
 bool ActionCard::isPlayable() 
@@ -22,23 +25,25 @@ bool ActionCard::isPlayable()
         return false;
     }
 
-    if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") //if action is these 2, return true
-    {
-        return true;
-    } 
+    // if (getInstruction() == "SWAP HAND WITH OPPONENT" || getInstruction() == "REVERSE HAND") //if action is these 2, return true
+    // {
+    //     return true;
+    // } 
 
     //std::regex pattern("((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //instruction starts w draw or play, has a space, 2 spaces for digits that can be 1 - 9, ends w string "CARDS" - 0 not included, case sensitive
     //std::regex pattern("((R?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); //gradescope version
     //gradescope accepts std::regex pattern("((R?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))"); but when u try this in vscode it doesnt work, prolly compiler issue
 
-    std::regex pattern(R"((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))");
+    //std::regex pattern(R"((?:DRAW|PLAY)\s([1-9]\d{0,1})\sCARD\(S\))");
 
-    if (!std::regex_match(getInstruction(), pattern)) 
-    {
-        return false;
-    }
+    // if (!std::regex_match(getInstruction(), pattern)) 
+    // {
+    //     return false;
+    // }
 
-    return true; //if ur here it means cards drawn and follows the pattern of instruction so it is playable fr
+    // return true; 
+    std::regex validInstruction(R"(^(DRAW \d+ CARD\(S\)|PLAY \d+ CARD\(S\)|REVERSE HAND|SWAP HAND WITH OPPONENT)$)");
+    return std::regex_match(getInstruction(), validInstruction); //if ur here it means cards drawn and follows the pattern of instruction so it is playable fr
 }
 
 void ActionCard::Print() const 
@@ -52,7 +57,11 @@ void ActionCard::Print() const
     }
 
     if (getImageData() != nullptr) 
-    {
-        std::cout << getImageData();
-    }
+    { 
+        for (int i = 0; i < 80; ++i) 
+        {  
+            std::cout << getImageData()[i];
+            std::cout << std::endl;
+        }
+    } 
 }

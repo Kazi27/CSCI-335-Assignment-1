@@ -7,95 +7,69 @@
 #include "Hand.hpp"
 #include "Player.hpp"
 
-bool hasHiddenCharacters(const std::string& str);
-
-int main() {
+int main() 
+{
     PointCard pc1;
-    PointCard pc2;
-    PointCard pc3;
-    PointCard pc4;
-    PointCard pc5;
-    PointCard pc6;
-    PointCard pc7;
-    PointCard pc8;
-    pc1.setInstruction("1");
-    pc2.setInstruction("2");
-    pc3.setInstruction("3");
-    pc4.setInstruction("4");
-    pc5.setInstruction("5");
-    pc6.setInstruction("6");
-    pc7.setInstruction("7");
-    pc8.setInstruction("8");
-
     ActionCard ac1;
+    PointCard pc2;
     ActionCard ac2;
+    PointCard pc3;
     ActionCard ac3;
+    PointCard pc4;
     ActionCard ac4;
+    
+    pc1.setInstruction("1");
     ac1.setInstruction("REVERSE HAND");
-    ac2.setInstruction("SWAP HAND WITH OPPONENT");
+    pc2.setInstruction("2");
+     ac2.setInstruction("SWAP HAND WITH OPPONENT");
+    pc3.setInstruction("3");
     ac3.setInstruction("DRAW 3 CARD(S)");
+    pc4.setInstruction("4");
     ac4.setInstruction("PLAY 2 CARD(S)");
-    //std::cout << ac2.getInstruction() << std::endl;
 
     Deck<PointCard> pdeck;
-    Deck<ActionCard> adeck;
+    Deck<ActionCard> actionDeck;
 
     pdeck.AddCard(pc1);
+    actionDeck.AddCard(ac1);
     pdeck.AddCard(pc2);
+    actionDeck.AddCard(ac2);
     pdeck.AddCard(pc3);
+    actionDeck.AddCard(ac3);
     pdeck.AddCard(pc4);
-    pdeck.AddCard(pc5);
-    pdeck.AddCard(pc6);
-    pdeck.AddCard(pc7);
-    pdeck.AddCard(pc8);
+    actionDeck.AddCard(ac4);
 
-    adeck.AddCard(ac1);
-    adeck.AddCard(ac2);
-    adeck.AddCard(ac3);
-    adeck.AddCard(ac4);
-
-    Player player1;
+    Player kazi;
     Hand hand1;
-    Player player2;
+    Player anwar;
     Hand hand2;
     
-    player1.setHand(hand1);
-    player1.setOpponent(&player2);
-    player1.setPointDeck(&pdeck);
-    player1.setActionDeck(&adeck);
+    kazi.setHand(hand1);
+    anwar.setHand(hand2);
+    kazi.setOpponent(&anwar);
+    anwar.setOpponent(&kazi);
+    kazi.setPointDeck(&pdeck);
+    anwar.setPointDeck(&pdeck);
+    kazi.setActionDeck(&actionDeck);
+    anwar.setActionDeck(&actionDeck);
 
-    player2.setHand(hand2);
-    player2.setOpponent(&player1);
-    player2.setPointDeck(&pdeck);
-    player2.setActionDeck(&adeck);
+    std::cout << "Initial Scores:" << "\n" << kazi.getScore() << "\n" << anwar.getScore() << "\n";
 
-    std::cout << "Initial Scores:" << "\n";
-    std::cout << player1.getScore() << "\n";
-    std::cout << player2.getScore() << "\n";
+    kazi.play(std::move(ac3));
+    anwar.play(std::move(ac3));
+    kazi.play(std::move(ac1));
+    anwar.play(std::move(ac1));
+    kazi.play(std::move(ac2));
+    kazi.play(std::move(ac4));
+    anwar.play(std::move(ac4));
 
-    player1.play(std::move(ac3));
-    player2.play(std::move(ac3));
-    player1.play(std::move(ac1));
-    player2.play(std::move(ac1));
-    
-    player1.play(std::move(ac2));
+    std::cout << "Updated Scores:" << "\n" << kazi.getScore() << "\n" << anwar.getScore() << "\n";
 
-    player1.play(std::move(ac4));
-    player2.play(std::move(ac4));
+    kazi.play(std::move(ac3));
+    kazi.play(std::move(ac4));
+    anwar.play(std::move(ac3));
+    kazi.play(std::move(ac4));
 
-    std::cout << "Updated Scores:" << "\n";
-    std::cout << player1.getScore() << "\n";
-    std::cout << player2.getScore() << "\n";
-
-    player1.play(std::move(ac3));
-    //player2.play(std::move(ac3));
-
-    player1.play(std::move(ac4));
-    player1.play(std::move(ac4));
-
-    std::cout << "Updated Scores:" << "\n";
-    std::cout << player1.getScore() << "\n";
-    std::cout << player2.getScore() << "\n";
-
+    std::cout << "Updated Scores:" << "\n" << kazi.getScore() << "\n" << anwar.getScore() << "\n";
     return 0;
 }
